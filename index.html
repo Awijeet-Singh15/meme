@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        body{
+            background-color: rgb(7, 7, 59);
+            color: aqua;
+        }
+        .meme-generator{
+            font-family: cursive;
+            text-align: center;
+        }
+        .meme-generator img{
+            height: 65vh;
+            object-fit: cover;
+        }
+        .generate-meme-button{
+           font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: 6px 12px;
+           border-radius: 9px;
+            border-left: 3px solid red;
+            border-right:3px solid red ;
+            margin: 24px 0px ;
+            font-size: 20px;
+            color: red;
+            background-color: beige;
+            cursor: pointer;
+            padding: 12px;
+            transition:all 0.5s ease-in;
+        }
+        .generate-meme-button:hover{
+            padding: 12px 24px;
+            border-left: 6px solid maroon;
+            border-right: 6px solid maroon;
+            font-size: 18px;
+            color: aqua;
+        }
+        .meme-author{
+            margin: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="meme-generator">
+        <button class="generate-meme-button">Generate Meme</button>
+        <h2 class="meme-title">Loading...</h2>
+        <img src="" alt="">
+        <div class="meme-author"></div>
+        </div>
+        <script>
+            const button=document.querySelector('.generate-meme-button');
+            const Images=document.querySelector("img");
+            const Title=document.querySelector(".meme-title");
+            const Author=document.querySelector(".meme-author");
+            const update=(url,title,author)=>{
+                Images.setAttribute("src",url);
+                Title.innerHTML=title;
+                Author.innerHTML=`Meme by = ${author}`
+            };
+            button.addEventListener("click",function(){
+                fetch("https://meme-api.com/gimme/wholesomememes")
+                .then((response) => response.json())
+                .then((data)=>{
+                    update(data.url,data.title,data.author);
+                });
+            });
+        </script>
+</body>
+</html>
